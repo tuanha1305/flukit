@@ -1,9 +1,10 @@
 import 'package:flukit/flukit.dart';
+import 'package:flukitdemo/utils/utils.dart';
 import 'package:flutter/material.dart';
 
-
 class SwiperRoute extends StatelessWidget {
-  final _images=["sea.png","star.jpg","cat.jpg","horse.jpg"];
+  final _images = ["sea", "star", "cat", "horse"];
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -18,9 +19,9 @@ class SwiperRoute extends StatelessWidget {
                 speed: 400,
                 indicator: CircleSwiperIndicator(),
                 children: <Widget>[
-                  Image.asset("images/sea.png",fit: BoxFit.fill,),
-                  Image.asset("images/star.jpg", fit: BoxFit.fill),
-                  Image.asset("images/cat.jpg",fit: BoxFit.fill,),
+                  Image.asset(Utils.getImgPath('sea'), fit: BoxFit.fill),
+                  Image.asset(Utils.getImgPath('star'), fit: BoxFit.fill),
+                  Image.asset(Utils.getImgPath('cat'), fit: BoxFit.fill),
                 ],
               ),
             ),
@@ -33,11 +34,11 @@ class SwiperRoute extends StatelessWidget {
                   //reverse: true, //反向
                   indicator: RectangleSwiperIndicator(),
                   children: <Widget>[
-                    Image.asset("images/sea.png",fit: BoxFit.fill,),
-                    Image.asset("images/star.jpg", fit: BoxFit.fill),
-                    Image.asset("images/cat.jpg",fit: BoxFit.fill,),
-                    Image.asset("images/horse.jpg", fit: BoxFit.fill),
-                    Image.asset("images/road.jpg",fit: BoxFit.fill,),
+                    Image.asset(Utils.getImgPath('sea'), fit: BoxFit.fill),
+                    Image.asset(Utils.getImgPath('star'), fit: BoxFit.fill),
+                    Image.asset(Utils.getImgPath('cat'), fit: BoxFit.fill),
+                    Image.asset(Utils.getImgPath('horse'), fit: BoxFit.fill),
+                    Image.asset(Utils.getImgPath('road'), fit: BoxFit.fill),
                   ],
                 ),
               ),
@@ -48,12 +49,11 @@ class SwiperRoute extends StatelessWidget {
                 indicatorAlignment: AlignmentDirectional.topEnd,
                 circular: true,
                 indicator: NumberSwiperIndicator(),
-
                 children: <Widget>[
-                  Image.asset("images/sea.png",fit: BoxFit.fill,),
-                  Image.asset("images/star.jpg", fit: BoxFit.fill),
-                  Image.asset("images/cat.jpg",fit: BoxFit.fill,),
-                  Image.asset("images/horse.jpg", fit: BoxFit.fill),
+                  Image.asset(Utils.getImgPath('sea'), fit: BoxFit.fill),
+                  Image.asset(Utils.getImgPath('star'), fit: BoxFit.fill),
+                  Image.asset(Utils.getImgPath('cat'), fit: BoxFit.fill),
+                  Image.asset(Utils.getImgPath('horse'), fit: BoxFit.fill),
                 ],
               ),
             ),
@@ -64,9 +64,10 @@ class SwiperRoute extends StatelessWidget {
                 circular: true,
                 childCount: _images.length,
                 indicator: NumberSwiperIndicator(),
-                itemBuilder: (context, index){
+                itemBuilder: (context, index) {
                   //print(index);
-                  return Image.asset("images/${_images[index]}",fit: BoxFit.fill);
+                  return Image.asset(Utils.getImgPath(_images[index]),
+                      fit: BoxFit.fill);
                 },
               ),
             ),
@@ -77,17 +78,16 @@ class SwiperRoute extends StatelessWidget {
   }
 }
 
-class NumberSwiperIndicator extends SwiperIndicator{
+class NumberSwiperIndicator extends SwiperIndicator {
   @override
   Widget build(BuildContext context, int index, int itemCount) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.black45,
-        borderRadius: BorderRadius.circular(20.0)
-      ),
-      margin: EdgeInsets.only(top: 10.0,right: 5.0),
-      padding: EdgeInsets.symmetric(horizontal: 6.0,vertical: 2.0),
-      child: Text("${++index}/$itemCount", style: TextStyle(color: Colors.white70, fontSize: 11.0)),
+          color: Colors.black45, borderRadius: BorderRadius.circular(20.0)),
+      margin: EdgeInsets.only(top: 10.0, right: 5.0),
+      padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+      child: Text("${++index}/$itemCount",
+          style: TextStyle(color: Colors.white70, fontSize: 11.0)),
     );
   }
 }

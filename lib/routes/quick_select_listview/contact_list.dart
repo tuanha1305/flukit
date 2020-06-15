@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flukitdemo/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:azlistview/azlistview.dart';
@@ -59,7 +60,7 @@ class _ContactListRouteState extends State<ContactListRoute> {
         children: <Widget>[
           ClipOval(
               child: Image.asset(
-            "./images/avatar.png",
+            Utils.getImgPath('avatar'),
             width: 80.0,
           )),
           Padding(

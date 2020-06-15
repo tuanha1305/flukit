@@ -1,18 +1,27 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'widgets/index.dart';
 import 'routes/index.dart';
 
-void main() => runApp(new MyApp());
+void main() {
+  runApp(MyApp());
+  if (Platform.isAndroid) {
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+  }
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'Flukit',
-      theme: new ThemeData(
+      theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new MyHomePage(title: 'Flukit demo'),
+      home: MyHomePage(title: 'Flukit demo'),
     );
   }
 }
@@ -22,7 +31,7 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -43,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
         PageInfo("(Raised)GradientButton", (ctx) => GradientButtonRoute()),
         PageInfo("GradientCircularProgressIndicator",
             (ctx) => GradientCircularProgressRoute()),
+        PageInfo("NineGridView & DragSortView", (ctx) => NineGridRoute()),
         PageInfo("AzListView", (ctx) => QuickSelectListViewRoute()),
       ]),
     );

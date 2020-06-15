@@ -1,3 +1,4 @@
+import 'package:flukitdemo/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flukit/flukit.dart';
 
@@ -13,13 +14,12 @@ class _SwiperStyleRouteState extends State<SwiperStyleRoute> {
   @override
   void initState() {
     super.initState();
-    swiperController=new SwiperController();
-    swiperController.addListener((){
+    swiperController = new SwiperController();
+    swiperController.addListener(() {
 //      print(swiperController.index);
 //      print(swiperController.page);
     });
   }
-
 
   @override
   void dispose() {
@@ -39,10 +39,10 @@ class _SwiperStyleRouteState extends State<SwiperStyleRoute> {
             circular: _circular,
             indicator: RectangleSwiperIndicator(),
             children: <Widget>[
-              Image.asset("images/sea.png",fit: BoxFit.fill,),
-              Image.asset("images/star.jpg", fit: BoxFit.fill),
-              Image.asset("images/cat.jpg",fit: BoxFit.fill,),
-              Image.asset("images/horse.jpg", fit: BoxFit.fill),
+              Image.asset(Utils.getImgPath('sea'), fit: BoxFit.fill),
+              Image.asset(Utils.getImgPath('star'), fit: BoxFit.fill),
+              Image.asset(Utils.getImgPath('cat'), fit: BoxFit.fill),
+              Image.asset(Utils.getImgPath('horse'), fit: BoxFit.fill),
             ],
           ),
         ),
@@ -57,13 +57,15 @@ class _SwiperStyleRouteState extends State<SwiperStyleRoute> {
         RaisedButton(
           child: Text("Prev"),
           onPressed: () {
-            swiperController.previousPage(duration: Duration(milliseconds: 200), curve: Curves.easeOut);
+            swiperController.previousPage(
+                duration: Duration(milliseconds: 200), curve: Curves.easeOut);
           },
         ),
         RaisedButton(
           child: Text("Next"),
           onPressed: () {
-            swiperController.nextPage(duration: Duration(milliseconds: 200), curve: Curves.easeOut);
+            swiperController.nextPage(
+                duration: Duration(milliseconds: 200), curve: Curves.easeOut);
           },
         ),
         RaisedButton(

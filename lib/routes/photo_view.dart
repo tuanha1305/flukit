@@ -1,3 +1,4 @@
+import 'package:flukitdemo/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flukit/flukit.dart';
 
@@ -12,12 +13,12 @@ class PhotoViewRoute extends StatelessWidget {
         itemColor: Colors.black26,
       ),
       children: <Widget>[
-        Image.asset("images/sea.png", fit: BoxFit.fill,),
-        Image.asset("images/avatar.png", fit: BoxFit.fill),
-        Image.asset("images/star.jpg", fit: BoxFit.fill),
-        Image.asset("images/cat.jpg", fit: BoxFit.fill,),
-        Image.asset("images/horse.jpg", fit: BoxFit.fill),
-        Image.asset("images/road.jpg", fit: BoxFit.fill)
+        Image.asset(Utils.getImgPath('sea'), fit: BoxFit.fill),
+        Image.asset(Utils.getImgPath('avatar'), fit: BoxFit.fill),
+        Image.asset(Utils.getImgPath('star'), fit: BoxFit.fill),
+        Image.asset(Utils.getImgPath('cat'), fit: BoxFit.fill),
+        Image.asset(Utils.getImgPath('horse'), fit: BoxFit.fill),
+        Image.asset(Utils.getImgPath('road'), fit: BoxFit.fill)
       ].map((v) {
         return ScaleView(child: v);
       }).toList(),

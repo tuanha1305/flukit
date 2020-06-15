@@ -44,5 +44,6 @@ If you add a new widget，please follow these rules:
 - IndexBar
 - SuspensionListView
 - CitySelectListView
-
+- NineGridView
+- DragSortView
 
