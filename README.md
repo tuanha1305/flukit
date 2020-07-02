@@ -53,7 +53,7 @@ flutter run
 | GradientCircularProgressIndicator | 一个支持颜色渐变的圆形进度指示器           |
 | InfiniteListView                  | 支持下拉刷新的无限加载列表组件             |
 | PullRefreshBox（betal）           | 下拉刷新（该组件并未成熟，将来可能会删掉） |
-| NineGridView                      | 类似微信/微博展示图片九宫格，钉钉群组，微信群组   |
+| NineGridView                      | 类似微信/微博展示图片九宫格，钉钉群组，微信群组，QQ讨论组头像   |
 | DragSortView                      | 类似微博/微信发布动态选图九宫格，拖拽换位 |
 
 
