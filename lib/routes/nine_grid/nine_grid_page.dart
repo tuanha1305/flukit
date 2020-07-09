@@ -109,7 +109,7 @@ class _NineGridPageState extends State<NineGridPage> {
         margin: EdgeInsets.all(5),
         alignment: Alignment.center,
         space: 2,
-        arcAngle: 60,
+        //arcAngle: 60,
         type: _gridType,
         decoration: _gridType == NineGridType.dingTalkGp ? null : decoration,
         itemCount: i % total + 1,
