@@ -29,6 +29,20 @@
 .pub-cache/
 .pub/
 build/
+# If you're building an application, you may want to check-in your pubspec.lock
+pubspec.lock
+local.properties
+flutter_export_environment.sh
+generated_plugin_registrant.dart
+GeneratedPluginRegistrant.h
+GeneratedPluginRegistrant.m
+GeneratedPluginRegistrant.java
+GeneratedPluginRegistrant.swift
+
+*/.idea/
+.idea/
+/.idea/workspace.xml
+/.idea/libraries
 
 # Android related
 **/android/**/gradle-wrapper.jar

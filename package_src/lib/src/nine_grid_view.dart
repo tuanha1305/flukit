@@ -43,7 +43,7 @@ class NineGridView extends StatefulWidget {
     Key key,
     this.width,
     this.height,
-    this.space: 2,
+    this.space: 3,
     this.arcAngle: 0,
     this.initIndex: 1,
     this.padding: EdgeInsets.zero,
@@ -212,7 +212,6 @@ class _NineGridViewState extends State<NineGridView> {
             widget.padding.right -
             (crossAxisCount - 1) * widget.space) /
         crossAxisCount;
-    print('thll _buildWeChatGroup itemWidth: $itemWidth');
     List<Widget> children = List();
     for (int i = 0; i < itemCount; i++) {
       children.add(SizedBox(
