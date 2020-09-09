@@ -10,4 +10,4 @@ export 'quick_select_list_view.dart';
 export 'animated_rotation_box.dart';
 export 'gradient_button.dart';
 export 'infinite_listview.dart';
-export 'nine_grid_route.dart';
+export 'nine_grid/nine_grid_page.dart';

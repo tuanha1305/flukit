@@ -5,7 +5,7 @@ import 'dart:math' as math;
 class DragBean {
   DragBean({
     this.index,
-    this.selected: false,
+    this.selected = false,
   });
 
   int index;
@@ -46,9 +46,9 @@ class DragSortView extends StatefulWidget {
     this.data, {
     Key key,
     this.width,
-    this.space: 5,
-    this.padding: EdgeInsets.zero,
-    this.margin: EdgeInsets.zero,
+    this.space = 5,
+    this.padding = EdgeInsets.zero,
+    this.margin = EdgeInsets.zero,
     @required this.itemBuilder,
     @required this.initBuilder,
     this.onDragListener,
@@ -477,6 +477,7 @@ class DragSortViewState extends State<DragSortView>
           _floatController.forward();
         }
       },
+      behavior: HitTestBehavior.translucent,
       child: Container(
         width: realWidth,
         height: realHeight,

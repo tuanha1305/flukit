@@ -60,18 +60,19 @@ flutter run
 
 ### Demo部分截图
 
-|<img src="docs/images/quick_scroll_bar.gif" width="260" />|<img src="docs/images/animated_rotation_box.gif" width="260"/>|<img src="docs/images/gradient_circular_progress_indicator.gif" width="260" />|
+|![](docs/images/quick_scroll_bar.gif)|![](docs/images/animated_rotation_box.gif)|![](docs/images/gradient_circular_progress_indicator.gif)|
 |:---:|:---:|:---:|
-|<img src="docs/images/swiper.gif" width="260" />|<img src="docs/images/photoview.gif" width="260"/>|<img src="docs/images/city_select.gif" width="260" />|
-|<img src="docs/images/pull_refresh.gif" width="260" />|<img src="docs/images/pull_refresh_with_custom_header.gif" width="260"/>|<img src="docs/images/city_select.gif" width="260" />|
-|<img src="docs/images/quick_list.gif" width="260" />|<img src="docs/images/raised_button.png" width="260"/>|<img src="docs/images/infinite_listview.png" width="260" />|
-|<img src="docs/images/nine_grid_view1.jpg" width="260" height="513"/>|<img src="docs/images/nine_grid_view2.jpg" width="260" height="513"/>|<img src="docs/images/nine_grid_view3.jpg" width="260" height="513"/>|
-|<img src="docs/images/nine_grid_view4.jpg" width="260" height="513"/>|<img src="docs/images/nine_grid_view5.jpg" width="260" height="513"/>|<img src="docs/images/nine_grid_view6.jpg" width="260" height="513"/>|
-|<img src="docs/images/nine_grid_view7.jpg" width="260" height="513"/>|<img src="docs/images/nine_grid_view8.jpg" width="260" height="513"/>|<img src="docs/images/nine_grid_view9.gif" width="220" height="465"/>|
+|![](docs/images/swiper.gif)|![](docs/images/photoview.gif)|![](docs/images/city_select.gif)|
+|![](docs/images/pull_refresh.gif)|![](docs/images/pull_refresh_with_custom_header.gif)|![](docs/images/city_select.gif)|
+|![](docs/images/quick_list.gif)|![](docs/images/raised_button.png)|![](docs/images/infinite_listview.png)|
+|![](https://s1.ax1x.com/2020/09/09/w3DOZq.png)|![](https://s1.ax1x.com/2020/09/09/w3rZFK.png)|![](https://s1.ax1x.com/2020/09/09/w3rJFf.png)|
+|![](docs/images/nine_grid_view1.jpg)|![](docs/images/nine_grid_view2.jpg)|![](docs/images/nine_grid_view3.jpg)|
+|![](docs/images/nine_grid_view4.jpg)|![](docs/images/nine_grid_view5.jpg)|![](docs/images/nine_grid_view6.jpg)|
+|![](docs/images/nine_grid_view7.jpg)|![](docs/images/nine_grid_view8.jpg)|![](docs/images/nine_grid_view9.gif)|
 
 
 ### Others
 
 另外一个[NineGridView](https://github.com/flutterchina/nine_grid_view)，使用的Stack + Positioned实现，本项目通过封装GridView实现。
 
-[AzListView](https://github.com/flutterchina/azlistview) Flutter 城市列表，联系人列表，索引&悬停。
+[AzListView](https://github.com/flutterchina/azlistview) A Flutter sticky headers & index ListView. Flutter 城市列表，联系人列表，索引&悬停。

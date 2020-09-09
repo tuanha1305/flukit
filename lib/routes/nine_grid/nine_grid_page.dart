@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'drag_sort_page.dart';
 import 'single_picture_page.dart';
 
-class NineGridPage extends StatefulWidget {
+class NineGridRoute extends StatefulWidget {
   @override
-  _NineGridPageState createState() => _NineGridPageState();
+  _NineGridRouteState createState() => _NineGridRouteState();
 }
 
-class _NineGridPageState extends State<NineGridPage> {
+class _NineGridRouteState extends State<NineGridRoute> {
   String _title = 'QQ Group';
   NineGridType _gridType = NineGridType.qqGp;
 
@@ -54,8 +54,8 @@ class _NineGridPageState extends State<NineGridPage> {
       borderRadius: BorderRadius.all(Radius.circular(4)),
     );
     Widget header = NineGridView(
-      width: 120,
-      height: 120,
+      width: 110,
+      height: 110,
       padding: EdgeInsets.all(2),
       alignment: Alignment.center,
       space: 3,

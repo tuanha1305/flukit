@@ -1,9 +1,10 @@
 import 'dart:convert';
+import 'package:flukitdemo/utils/models.dart';
+import 'package:flukitdemo/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:azlistview/azlistview.dart';
 import 'package:lpinyin/lpinyin.dart';
-import 'city_model.dart';
 
 class CitySelectRoute extends StatefulWidget {
   @override
@@ -13,103 +14,61 @@ class CitySelectRoute extends StatefulWidget {
 }
 
 class _CitySelectRouteState extends State<CitySelectRoute> {
-  List<CityInfo> _cityList = List();
-  List<CityInfo> _hotCityList = List();
-
-  int _suspensionHeight = 40;
-  int _itemHeight = 50;
-  String _suspensionTag = "";
+  List<CityModel> cityList = List();
+  List<CityModel> _hotCityList = List();
 
   @override
   void initState() {
     super.initState();
-    loadData();
-  }
+    _hotCityList.add(CityModel(name: '北京市', tagIndex: '★'));
+    _hotCityList.add(CityModel(name: '广州市', tagIndex: '★'));
+    _hotCityList.add(CityModel(name: '成都市', tagIndex: '★'));
+    _hotCityList.add(CityModel(name: '深圳市', tagIndex: '★'));
+    _hotCityList.add(CityModel(name: '杭州市', tagIndex: '★'));
+    _hotCityList.add(CityModel(name: '武汉市', tagIndex: '★'));
+    cityList.addAll(_hotCityList);
+    SuspensionUtil.setShowSuspensionStatus(cityList);
 
-  void loadData() async {
-    _hotCityList.add(CityInfo(name: "北京市", tagIndex: "★"));
-    _hotCityList.add(CityInfo(name: "广州市", tagIndex: "★"));
-    _hotCityList.add(CityInfo(name: "成都市", tagIndex: "★"));
-    _hotCityList.add(CityInfo(name: "深圳市", tagIndex: "★"));
-    _hotCityList.add(CityInfo(name: "杭州市", tagIndex: "★"));
-    _hotCityList.add(CityInfo(name: "武汉市", tagIndex: "★"));
-
-    //加载城市列表
-    rootBundle.loadString('assets/data/china.json').then((value) {
-      Map countyMap = json.decode(value);
-      List list = countyMap['china'];
-      list.forEach((value) {
-        _cityList.add(CityInfo(name: value['name']));
-      });
-      _handleList(_cityList);
-
-      setState(() {
-        _suspensionTag = _hotCityList[0].getSuspensionTag();
-      });
+    Future.delayed(Duration(milliseconds: 500), () {
+      loadData();
     });
   }
 
-  void _handleList(List<CityInfo> list) {
+  void loadData() async {
+    //加载城市列表
+    rootBundle.loadString('assets/data/china.json').then((value) {
+      cityList.clear();
+      Map countyMap = json.decode(value);
+      List list = countyMap['china'];
+      list.forEach((v) {
+        cityList.add(CityModel.fromJson(v));
+      });
+      _handleList(cityList);
+    });
+  }
+
+  void _handleList(List<CityModel> list) {
     if (list == null || list.isEmpty) return;
     for (int i = 0, length = list.length; i < length; i++) {
       String pinyin = PinyinHelper.getPinyinE(list[i].name);
       String tag = pinyin.substring(0, 1).toUpperCase();
       list[i].namePinyin = pinyin;
-      if (RegExp("[A-Z]").hasMatch(tag)) {
+      if (RegExp('[A-Z]').hasMatch(tag)) {
         list[i].tagIndex = tag;
       } else {
-        list[i].tagIndex = "#";
+        list[i].tagIndex = '#';
       }
     }
-    //根据A-Z排序
+    // A-Z sort.
     SuspensionUtil.sortListBySuspensionTag(list);
-  }
 
-  void _onSusTagChanged(String tag) {
-    setState(() {
-      _suspensionTag = tag;
-    });
-  }
+    // add hotCityList.
+    cityList.insertAll(0, _hotCityList);
 
-  Widget _buildSusWidget(String susTag) {
-    susTag = (susTag == "★" ? "热门城市" : susTag);
-    return Container(
-      height: _suspensionHeight.toDouble(),
-      padding: const EdgeInsets.only(left: 15.0),
-      color: Color(0xfff3f4f5),
-      alignment: Alignment.centerLeft,
-      child: Text(
-        '$susTag',
-        softWrap: false,
-        style: TextStyle(
-          fontSize: 14.0,
-          color: Color(0xff999999),
-        ),
-      ),
-    );
-  }
+    // show sus tag.
+    SuspensionUtil.setShowSuspensionStatus(cityList);
 
-  Widget _buildListItem(CityInfo model) {
-    String susTag = model.getSuspensionTag();
-    susTag = (susTag == "★" ? "热门城市" : susTag);
-    return Column(
-      children: <Widget>[
-        Offstage(
-          offstage: model.isShowSuspension != true,
-          child: _buildSusWidget(susTag),
-        ),
-        SizedBox(
-          height: _itemHeight.toDouble(),
-          child: ListTile(
-            title: Text(model.name),
-            onTap: () {
-              print("OnItemClick: $model");
-              Navigator.pop(context, model);
-            },
-          ),
-        )
-      ],
-    );
+    setState(() {});
   }
 
   @override
@@ -125,15 +84,19 @@ class _CitySelectRouteState extends State<CitySelectRoute> {
         Expanded(
             flex: 1,
             child: AzListView(
-              data: _cityList,
-              topData: _hotCityList,
-              itemBuilder: (context, model) => _buildListItem(model),
-              suspensionWidget: _buildSusWidget(_suspensionTag),
-              isUseRealIndex: true,
-              itemHeight: _itemHeight,
-              suspensionHeight: _suspensionHeight,
-              onSusTagChanged: _onSusTagChanged,
-              //showCenterTip: false,
+              data: cityList,
+              itemCount: cityList.length,
+              itemBuilder: (BuildContext context, int index) {
+                CityModel model = cityList[index];
+                return Utils.getListItem(context, model);
+              },
+              padding: EdgeInsets.zero,
+              susItemBuilder: (BuildContext context, int index) {
+                CityModel model = cityList[index];
+                String tag = model.getSuspensionTag();
+                return Utils.getSusItem(context, tag);
+              },
+              indexBarData: ['★', ...kIndexBarData],
             )),
       ],
     );

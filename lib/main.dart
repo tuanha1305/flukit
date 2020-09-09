@@ -52,7 +52,8 @@ class _MyHomePageState extends State<MyHomePage> {
         PageInfo("(Raised)GradientButton", (ctx) => GradientButtonRoute()),
         PageInfo("GradientCircularProgressIndicator",
             (ctx) => GradientCircularProgressRoute()),
-        PageInfo("NineGridView & DragSortView", (ctx) => NineGridRoute()),
+        PageInfo(
+            "NineGridView & DragSortView", (ctx) => NineGridRoute(), false),
         PageInfo("AzListView", (ctx) => QuickSelectListViewRoute()),
       ]),
     );

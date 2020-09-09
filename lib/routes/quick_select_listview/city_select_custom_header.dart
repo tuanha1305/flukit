@@ -1,78 +1,85 @@
 import 'dart:convert';
+
+import 'package:azlistview/azlistview.dart';
+import 'package:flukitdemo/utils/models.dart';
+import 'package:flukitdemo/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:azlistview/azlistview.dart';
 import 'package:lpinyin/lpinyin.dart';
-import 'city_model.dart';
 
 class CitySelectCustomHeaderRoute extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return new _CitySelectCustomHeaderRouteState();
-  }
+  _CitySelectCustomHeaderRouteState createState() =>
+      _CitySelectCustomHeaderRouteState();
 }
 
 class _CitySelectCustomHeaderRouteState
     extends State<CitySelectCustomHeaderRoute> {
-  List<CityInfo> _cityList = List();
-
-  int _suspensionHeight = 40;
-  int _itemHeight = 50;
-  String _suspensionTag = "";
+  List<CityModel> cityList = List();
+  double susItemHeight = 36;
+  String imgFavorite = Utils.getImgPath('ic_favorite');
 
   @override
   void initState() {
     super.initState();
-    loadData();
+    Future.delayed(Duration(milliseconds: 500), () {
+      loadData();
+    });
   }
 
   void loadData() async {
     //加载城市列表
     rootBundle.loadString('assets/data/china.json').then((value) {
+      cityList.clear();
       Map countyMap = json.decode(value);
       List list = countyMap['china'];
-      list.forEach((value) {
-        _cityList.add(CityInfo(name: value['name']));
+      list.forEach((v) {
+        cityList.add(CityModel.fromJson(v));
       });
-      _handleList(_cityList);
-      setState(() {});
+      _handleList(cityList);
     });
   }
 
-  void _handleList(List<CityInfo> list) {
+  void _handleList(List<CityModel> list) {
     if (list == null || list.isEmpty) return;
     for (int i = 0, length = list.length; i < length; i++) {
       String pinyin = PinyinHelper.getPinyinE(list[i].name);
       String tag = pinyin.substring(0, 1).toUpperCase();
       list[i].namePinyin = pinyin;
-      if (RegExp("[A-Z]").hasMatch(tag)) {
+      if (RegExp('[A-Z]').hasMatch(tag)) {
         list[i].tagIndex = tag;
       } else {
-        list[i].tagIndex = "#";
+        list[i].tagIndex = '#';
       }
     }
-    //根据A-Z排序
+    // A-Z sort.
     SuspensionUtil.sortListBySuspensionTag(list);
-  }
 
-  void _onSusTagChanged(String tag) {
-    setState(() {
-      _suspensionTag = tag;
-    });
+    // show sus tag.
+    SuspensionUtil.setShowSuspensionStatus(cityList);
+
+    // add header.
+    cityList.insert(
+        0,
+        CityModel(
+            name: 'header',
+            tagIndex: imgFavorite)); //index bar support local images.
+
+    setState(() {});
   }
 
   Widget _buildHeader() {
-    List<CityInfo> hotCityList = List();
+    List<CityModel> hotCityList = List();
     hotCityList.addAll([
-      CityInfo(name: "北京市"),
-      CityInfo(name: "广州市"),
-      CityInfo(name: "成都市"),
-      CityInfo(name: "深圳市"),
-      CityInfo(name: "杭州市"),
-      CityInfo(name: "武汉市"),
+      CityModel(name: "北京市"),
+      CityModel(name: "广州市"),
+      CityModel(name: "成都市"),
+      CityModel(name: "深圳市"),
+      CityModel(name: "杭州市"),
+      CityModel(name: "武汉市"),
     ]);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.all(20),
       child: Wrap(
         alignment: WrapAlignment.center,
         runAlignment: WrapAlignment.center,
@@ -91,49 +98,10 @@ class _CitySelectCustomHeaderRouteState
     );
   }
 
-  Widget _buildSusWidget(String susTag) {
-    return Container(
-      height: _suspensionHeight.toDouble(),
-      padding: const EdgeInsets.only(left: 15.0),
-      color: Color(0xfff3f4f5),
-      alignment: Alignment.centerLeft,
-      child: Text(
-        '$susTag',
-        softWrap: false,
-        style: TextStyle(
-          fontSize: 14.0,
-          color: Color(0xff999999),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildListItem(CityInfo model) {
-    String susTag = model.getSuspensionTag();
-    return Column(
-      children: <Widget>[
-        Offstage(
-          offstage: model.isShowSuspension != true,
-          child: _buildSusWidget(susTag),
-        ),
-        SizedBox(
-          height: _itemHeight.toDouble(),
-          child: ListTile(
-            title: Text(model.name),
-            onTap: () {
-              print("OnItemClick: $model");
-              Navigator.pop(context, model);
-            },
-          ),
-        )
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[
+      children: [
         ListTile(
             title: Text("当前城市"),
             trailing: Row(
@@ -150,33 +118,33 @@ class _CitySelectCustomHeaderRouteState
           height: .0,
         ),
         Expanded(
-            flex: 1,
-            child: AzListView(
-              data: _cityList,
-              itemBuilder: (context, model) => _buildListItem(model),
-              suspensionWidget: _buildSusWidget(_suspensionTag),
-              isUseRealIndex: true,
-              itemHeight: _itemHeight,
-              suspensionHeight: _suspensionHeight,
-              onSusTagChanged: _onSusTagChanged,
-              header: AzListViewHeader(
-                  tag: "★",
-                  height: 140,
-                  builder: (context) {
-                    return _buildHeader();
-                  }),
-              indexHintBuilder: (context, hint) {
-                return Container(
-                  alignment: Alignment.center,
-                  width: 80.0,
-                  height: 80.0,
-                  decoration: BoxDecoration(
-                      color: Colors.black54, shape: BoxShape.circle),
-                  child: Text(hint,
-                      style: TextStyle(color: Colors.white, fontSize: 30.0)),
-                );
-              },
-            )),
+          child: AzListView(
+            data: cityList,
+            itemCount: cityList.length,
+            itemBuilder: (BuildContext context, int index) {
+              if (index == 0) return _buildHeader();
+              CityModel model = cityList[index];
+              return Utils.getListItem(context, model,
+                  susHeight: susItemHeight);
+            },
+            susItemHeight: susItemHeight,
+            susItemBuilder: (BuildContext context, int index) {
+              CityModel model = cityList[index];
+              String tag = model.getSuspensionTag();
+              if (imgFavorite == tag) {
+                return Container();
+              }
+              return Utils.getSusItem(context, tag, susHeight: susItemHeight);
+            },
+            indexBarData: SuspensionUtil.getTagIndexList(cityList),
+            indexBarOptions: IndexBarOptions(
+              needRebuild: true,
+              color: Colors.transparent,
+              downColor: Color(0xFFEEEEEE),
+              localImages: [imgFavorite], //local images.
+            ),
+          ),
+        ),
       ],
     );
   }

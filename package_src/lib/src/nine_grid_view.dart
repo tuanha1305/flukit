@@ -43,15 +43,15 @@ class NineGridView extends StatefulWidget {
     Key key,
     this.width,
     this.height,
-    this.space: 3,
-    this.arcAngle: 0,
-    this.initIndex: 1,
-    this.padding: EdgeInsets.zero,
-    this.margin: EdgeInsets.zero,
+    this.space = 3,
+    this.arcAngle = 0,
+    this.initIndex = 1,
+    this.padding = EdgeInsets.zero,
+    this.margin = EdgeInsets.zero,
     this.alignment,
     this.color,
     this.decoration,
-    this.type: NineGridType.weChat,
+    this.type = NineGridType.weChat,
     @required this.itemCount,
     @required this.itemBuilder,
     this.bigImageWidth,
@@ -215,8 +215,8 @@ class _NineGridViewState extends State<NineGridView> {
     List<Widget> children = List();
     for (int i = 0; i < itemCount; i++) {
       children.add(SizedBox(
-        width: itemWidth,
-        height: itemWidth,
+        width: itemWidth.floorToDouble(),
+        height: itemWidth.floorToDouble(),
         child: widget.itemBuilder(context, i),
       ));
     }
@@ -454,11 +454,11 @@ class QQClipper extends CustomClipper<Path> {
   QQClipper({
     this.total,
     this.index,
-    this.initIndex: 1,
+    this.initIndex = 1,
     this.previousX,
     this.previousY,
     this.degree,
-    this.arcAngle: 0,
+    this.arcAngle = 0,
     this.space,
   }) : assert(arcAngle != null && arcAngle >= 0 && arcAngle <= 180);
 
